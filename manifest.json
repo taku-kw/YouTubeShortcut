@@ -1,0 +1,31 @@
+{
+  "name": "YouTubeShortcut",
+  "short_name": "YTS",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "description": "Operate YouTube with the keyboard (left part only)",
+  "icons": {
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "css": [
+        "css/style.css"
+      ],
+      "run_at": "document_start",
+      "js": [
+        "js/jquery-3.6.1.min.js",
+        "js/content.js"
+      ]
+    }
+  ],
+  "permissions": [
+    "tabs"
+  ]
+}
