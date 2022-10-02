@@ -22,6 +22,8 @@ $(function() {
           break;
         case 'watch':
           page = Page.watch;
+          index = 0;
+          setTimeout(() => registerOnEndedMovie(), 500);
           break;
         case 'subscription':
           page = Page.subscription;
@@ -74,6 +76,14 @@ $(function() {
     if (movie != null) {
       movie.classList.remove('focus-movie');
     }
+  }
+
+  function registerOnEndedMovie() {
+    const player = $('.video-stream' + '.html5-main-video')[0];
+    player.addEventListener('ended', function() {
+      const movie = $('.ytp-endscreen-content').find('.ytp-videowall-still' + '.ytp-suggestion-set')[0];
+      focusMovie(movie);
+    }, false);
   }
     
   $(window).keydown(function(e) {
@@ -202,41 +212,76 @@ $(function() {
     console.debug(`Call operateWatchPage(${key})`);
 
     let player = $('.video-stream' + '.html5-main-video')[0];
-    switch(key) {
-      case 'w':
-        // Volume Up
-        if (player.volume + 0.05 <= 1.00) {
-          player.volume += 0.05;
-        } else {
-          player.volume = 1.00;
-        }
-        break;
-      case 'a':
-        // Back 5 seconds
-        if (player.currentTime - 5 >= 0) {
-          player.currentTime -= 5;
-        } else {
-          player.currentTime = 0;
-        }
-        break;
-      case 's':
-        // Volume Down
-        if (player.volume - 0.05 >= 0.00) {
-          player.volume -= 0.05;
-        } else {
-          player.volume = 0.00;
-        }
-        break;
-      case 'd':
-        // Forward 5 seconds
-        if (player.currentTime + 5 <= player.duration) {
-          player.currentTime += 5;
-        } else {
-          player.currentTime = player.duration;
-        }
-        break;
-      default:
-        return;
+    if (!player.ended) {
+      // Player Playing
+      switch(key) {
+        case 'w':
+          // Volume Up
+          if (player.volume + 0.05 <= 1.00) {
+            player.volume += 0.05;
+          } else {
+            player.volume = 1.00;
+          }
+          break;
+        case 'a':
+          // Back 5 seconds
+          if (player.currentTime - 5 >= 0) {
+            player.currentTime -= 5;
+          } else {
+            player.currentTime = 0;
+          }
+          break;
+        case 's':
+          // Volume Down
+          if (player.volume - 0.05 >= 0.00) {
+            player.volume -= 0.05;
+          } else {
+            player.volume = 0.00;
+          }
+          break;
+        case 'd':
+          // Forward 5 seconds
+          if (player.currentTime + 5 <= player.duration) {
+            player.currentTime += 5;
+          } else {
+            player.currentTime = player.duration;
+          }
+          break;
+        default:
+          return;
+      }
+    } else {
+      // Player Ended
+      const movieList = $('.ytp-endscreen-content').find('.ytp-videowall-still' + '.ytp-suggestion-set');
+      let nextIndexOffset = 0;
+      
+      switch(key) {
+        case 'w':
+          nextIndexOffset = -1;
+          break;
+        case 'a':
+          nextIndexOffset = -3;
+          break;
+        case 's':
+          nextIndexOffset = 1;
+          break;
+        case 'd':
+          nextIndexOffset = 3;
+          break;
+        case 'e':
+          unfocusMovie(movieList[index]);
+          movieList[index].click();
+          break;
+        default:
+          return;
+      }
+
+      const nextIndex = index + nextIndexOffset;
+      if (movieList[nextIndex] != null && 0 <= nextIndex && nextIndex < 12) {
+        unfocusMovie(movieList[index]);
+        focusMovie(movieList[nextIndex]);
+        index = nextIndex;
+      }
     }
   }
 
