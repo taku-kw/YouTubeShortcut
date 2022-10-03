@@ -174,6 +174,10 @@ $(function() {
         unfocusMovie(movieList[index]);
         movieList[index].click();
         return;
+      case 'v':
+        unfocusMovie(movieList[index]);
+        window.open(movieList[index]['href'], '_blank');
+        return;
       default:
         return;
     }
@@ -272,6 +276,10 @@ $(function() {
           unfocusMovie(movieList[index]);
           movieList[index].click();
           break;
+        case 'v':
+          unfocusMovie(movieList[index]);
+          window.open(movieList[index]['href'], '_blank');
+          return;
         default:
           return;
       }
@@ -309,6 +317,10 @@ $(function() {
         unfocusMovie(movieList[index]);
         movieList[index].click();
         return;
+      case 'v':
+        unfocusMovie(movieList[index]);
+        window.open(movieList[index]['href'], '_blank');
+        return;
       default:
         return;
     }
@@ -338,6 +350,10 @@ $(function() {
       case 'e':
         unfocusMovie(movieList[index]);
         movieList[index].click();
+        return;
+      case 'v':
+        unfocusMovie(movieList[index]);
+        window.open(movieList[index]['href'], '_blank');
         return;
       default:
         return;
