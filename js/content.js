@@ -101,7 +101,7 @@ $(function() {
       }
     }
 
-    if ($('#search input').is(':focus')) {
+    if ($('input').is(':focus')) {
       return;
     }
 
