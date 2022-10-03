@@ -67,7 +67,6 @@ $(function() {
 
   function focusMovie(movie) {
     if (movie != null) {
-      movie.focus();
       movie.classList.add('focus-movie');
     }
   }
