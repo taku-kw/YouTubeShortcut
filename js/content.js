@@ -251,6 +251,22 @@ $(function() {
             player.currentTime = player.duration;
           }
           break;
+        case 'x':
+          // PlaybackRate to 2.0 
+          if (player.playbackRate != 2.0) {
+            player.playbackRate = 2.0;
+          } else {
+            player.playbackRate = 1.0;
+          }
+          break;
+        case 'z':
+          // PlaybackRate to 0.5 
+          if (player.playbackRate != 0.5) {
+            player.playbackRate = 0.5;
+          } else {
+            player.playbackRate = 1.0;
+          }
+          break;
         default:
           return;
       }
