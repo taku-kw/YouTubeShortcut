@@ -44,23 +44,33 @@ $(function() {
     }
   )
   
+  const movieElemId = '.yt-simple-endpoint' + '.inline-block' + '.style-scope' + '.ytd-thumbnail';
+  const movieAreaElemIdMap = new Map([
+    [Page.none, 'undefined'],
+    [Page.top, '.style-scope' + '.ytd-rich-grid-renderer'],
+    [Page.watchMovie, '.ytp-endscreen-content'],
+    [Page.subscription, '.style-scope' + '.ytd-grid-renderer'],
+    [Page.searchResult, '.style-scope' + '.ytd-item-section-renderer'],
+    [Page.playlist, '']
+  ]);
+
   function focusMovieInitTop(index) {
     setTimeout(function() {
-      const movie = $('.yt-simple-endpoint' + '.inline-block' + '.style-scope' + '.ytd-thumbnail')[index];
+      const movie = $(movieAreaElemIdMap.get(page)).find(movieElemId)[index];
       focusMovie(movie);
     }, 500);
   }
 
   function focusMovieInitSubscription(index) {
     setTimeout(function() {
-      const movie = $('.yt-simple-endpoint' + '.inline-block' + '.style-scope' + '.ytd-thumbnail')[index];
+      const movie = $(movieAreaElemIdMap.get(page)).find(movieElemId)[index];
       focusMovie(movie);
     }, 500);
   }
 
   function focusMovieInitSearchResult(index) {
     setTimeout(function() {
-      const movie = $('.style-scope' + '.ytd-item-section-renderer').find('.yt-simple-endpoint' + '.inline-block' + '.style-scope' + '.ytd-thumbnail')[index];
+      const movie = $(movieAreaElemIdMap.get(page)).find(movieElemId)[index];
       focusMovie(movie);
     }, 500);
   }
@@ -81,7 +91,7 @@ $(function() {
   function registerOnEndedMovie() {
     const player = $('.video-stream' + '.html5-main-video')[0];
     player.addEventListener('ended', function() {
-      const movie = $('.ytp-endscreen-content').find('.ytp-videowall-still' + '.ytp-suggestion-set')[0];
+      const movie = $(movieAreaElemIdMap.get(page)).find('.ytp-videowall-still' + '.ytp-suggestion-set')[0];
       focusMovie(movie);
     }, false);
   }
@@ -159,7 +169,7 @@ $(function() {
       return;
     }
     
-    const movieList = $('.yt-simple-endpoint' + '.inline-block' + '.style-scope' + '.ytd-thumbnail');
+    const movieList = $(movieAreaElemIdMap.get(page)).find(movieElemId);
     let nextIndexOffset = 0;
 
     switch(key) {
@@ -321,7 +331,7 @@ $(function() {
   function operateSubscriptionPage(key) {
     console.debug(`Call operateSubscriptionPage(${key})`);
 
-    const movieList = $('.yt-simple-endpoint' + '.inline-block' + '.style-scope' + '.ytd-thumbnail');
+    const movieList = $(movieAreaElemIdMap.get(page)).find(movieElemId);
     let nextIndexOffset = 0;
 
     switch(key) {
@@ -364,7 +374,7 @@ $(function() {
   function operateSearchResultPage(key) {
     console.debug(`Call operateSearchResultPage(${key})`);
 
-    const movieList = $('.style-scope' + '.ytd-item-section-renderer').find('.yt-simple-endpoint' + '.inline-block' + '.style-scope' + '.ytd-thumbnail');
+    const movieList = $(movieAreaElemIdMap.get(page)).find(movieElemId);
     let nextIndexOffset = 0;
 
     switch(key) {
