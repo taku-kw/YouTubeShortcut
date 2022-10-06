@@ -105,6 +105,11 @@ $(function() {
       return;
     }
 
+    // Avoid interfering with existing shortcuts
+    if (e.ctrlKey || e.altKey || e.metaKey || e.shiftKey) {
+      return;
+    }
+
     switch(e.key) {
       case 't':
         if (location.href != 'https://www.youtube.com/') {
