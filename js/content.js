@@ -1,7 +1,7 @@
 const Page = {
   none: 0,
   top: 1,
-  watch: 2,
+  watchMovie: 2,
   subscription: 3,
   searchResult: 4,
   playlist: 5
@@ -20,8 +20,8 @@ $(function() {
           index = 1;
           focusMovieInitTop(index);
           break;
-        case 'watch':
-          page = Page.watch;
+        case 'watchMovie':
+          page = Page.watchMovie;
           index = 0;
           setTimeout(() => registerOnEndedMovie(), 500);
           break;
@@ -134,8 +134,8 @@ $(function() {
       case Page.top:
         operateTopPage(e.key);
         break;
-      case Page.watch:
-        operateWatchPage(e.key);
+      case Page.watchMovie:
+        operateWatchMoviePage(e.key);
         break;
       case Page.subscription:
         operateSubscriptionPage(e.key);
@@ -219,9 +219,9 @@ $(function() {
     return ret;
   }
 
-  /* Watch Page */
-  function operateWatchPage(key) {
-    console.debug(`Call operateWatchPage(${key})`);
+  /* Watch Movie Page */
+  function operateWatchMoviePage(key) {
+    console.debug(`Call operateWatchMoviePage(${key})`);
 
     let player = $('.video-stream' + '.html5-main-video')[0];
     if (!player.ended) {

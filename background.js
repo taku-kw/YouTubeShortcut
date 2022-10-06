@@ -7,8 +7,8 @@ chrome.tabs.onUpdated.addListener(async function(tabId, info, tab) {
         console.debug('Display "Top Page"');
         chrome.tabs.sendMessage(tabs[0].id, {page: 'top'});
       } else if (tab.url.indexOf(youtubeUrl + '/watch') !== -1) {
-        console.debug('Display "Watch Page"');
-        chrome.tabs.sendMessage(tabs[0].id, {page: 'watch'});
+        console.debug('Display "Watch Movie Page"');
+        chrome.tabs.sendMessage(tabs[0].id, {page: 'watchMovie'});
       } else if (tab.url == (youtubeUrl + '/feed/subscriptions')) {
         console.debug('Display "Subscription Page"');
         chrome.tabs.sendMessage(tabs[0].id, {page: 'subscription'});
