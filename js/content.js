@@ -9,11 +9,18 @@ const Page = {
 
 let page = Page.none;
 let index = 1;
+let focusedMovie = null;
 
 $(function() {
   chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
       console.debug(`Recv Msg of ${request.page} From background.js`);
+
+      // Unfocus in previous page
+      if (focusedMovie != null) {
+        unfocusMovie(focusedMovie);
+      }
+
       switch(request.page) {
         case 'top':
           page = Page.top;
@@ -207,6 +214,7 @@ $(function() {
         if (isDisplay(movieList[nextIndex])) {
           unfocusMovie(movieList[index]);
           focusMovie(movieList[nextIndex]);
+          focusedMovie = movieList[nextIndex];
           index = nextIndex;
           break;
         } else {
@@ -322,6 +330,7 @@ $(function() {
       if (movieList[nextIndex] != null && 0 <= nextIndex && nextIndex < 12) {
         unfocusMovie(movieList[index]);
         focusMovie(movieList[nextIndex]);
+        focusedMovie = movieList[nextIndex];
         index = nextIndex;
       }
     }
@@ -366,6 +375,7 @@ $(function() {
     if (movieList[nextIndex] != null && nextIndex >= 0) {
       unfocusMovie(movieList[index]);
       focusMovie(movieList[nextIndex]);
+      focusedMovie = movieList[nextIndex];
       index = nextIndex;
     }
   }
@@ -403,6 +413,7 @@ $(function() {
     if (movieList[nextIndex] != null && nextIndex >= 0) {
       unfocusMovie(movieList[index]);
       focusMovie(movieList[nextIndex]);
+      focusedMovie = movieList[nextIndex];
       index = nextIndex;
     }
   }
