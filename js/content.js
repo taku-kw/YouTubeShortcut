@@ -33,7 +33,7 @@ $(function() {
         case 'searchResult':
           page = Page.searchResult;
           index = 0;
-          focusMovieInitSearchResult(index);
+          setTimeout(() => focusMovieInitSearchResult(index), 500);
           break;
         case 'playlist':
           page = Page.playlist;
