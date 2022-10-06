@@ -17,7 +17,7 @@ $(function() {
       switch(request.page) {
         case 'top':
           page = Page.top;
-          index = 1;
+          index = 0;
           focusMovieInitTop(index);
           break;
         case 'watchMovie':
@@ -27,7 +27,7 @@ $(function() {
           break;
         case 'subscription':
           page = Page.subscription;
-          index = 1;
+          index = 0;
           focusMovieInitSubscription(index);
           break;
         case 'searchResult':
@@ -203,7 +203,7 @@ $(function() {
     let nextIndexOffsetUnit = nextIndexOffset;
     while(true) {
       const nextIndex = index + nextIndexOffset;
-      if (movieList[nextIndex] != null && nextIndex > 0) {
+      if (movieList[nextIndex] != null && nextIndex >= 0) {
         if (isDisplay(movieList[nextIndex])) {
           unfocusMovie(movieList[index]);
           focusMovie(movieList[nextIndex]);
@@ -363,7 +363,7 @@ $(function() {
     }
 
     const nextIndex = index + nextIndexOffset;
-    if (movieList[nextIndex] != null && nextIndex >= 1) {
+    if (movieList[nextIndex] != null && nextIndex >= 0) {
       unfocusMovie(movieList[index]);
       focusMovie(movieList[nextIndex]);
       index = nextIndex;
