@@ -1,7 +1,7 @@
 {
   "name": "YouTubeShortcut",
   "short_name": "YTS",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "manifest_version": 3,
   "description": "Operate YouTube with the keyboard (left part only)",
   "icons": {
