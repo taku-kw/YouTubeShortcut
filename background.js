@@ -15,9 +15,9 @@ chrome.tabs.onUpdated.addListener(async function(tabId, info, tab) {
       } else if (tab.url.indexOf(youtubeUrl + '/results') !== -1) {
         console.debug('Display "Search Result Page"');
         chrome.tabs.sendMessage(tabs[0].id, {page: 'searchResult'});
-      }  else if (tab.url.indexOf(youtubeUrl + '/playlist') !== -1) {
-        console.debug('Display "Playlist Page"');
-        chrome.tabs.sendMessage(tabs[0].id, {page: 'playlist'});
+      }  else if (tab.url.match(new RegExp('https\://www\.youtube\.com/channel/.*/playlists')) != null) {
+        console.debug('Display "Playlists Page"');
+        chrome.tabs.sendMessage(tabs[0].id, {page: 'playlists'});
       }
     })
   }

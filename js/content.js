@@ -4,7 +4,7 @@ const Page = {
   watchMovie: 2,
   subscription: 3,
   searchResult: 4,
-  playlist: 5
+  playlists: 5
 }
 
 let page = Page.none;
@@ -25,7 +25,7 @@ $(function() {
         case 'top':
           page = Page.top;
           index = 0;
-          focusMovieInitTop(index);
+          focusMovieInit(index);
           break;
         case 'watchMovie':
           page = Page.watchMovie;
@@ -35,15 +35,17 @@ $(function() {
         case 'subscription':
           page = Page.subscription;
           index = 0;
-          focusMovieInitSubscription(index);
+          focusMovieInit(index);
           break;
         case 'searchResult':
           page = Page.searchResult;
           index = 0;
-          setTimeout(() => focusMovieInitSearchResult(index), 500);
+          focusMovieInit(index, 1000);
           break;
-        case 'playlist':
-          page = Page.playlist;
+        case 'playlists':
+          page = Page.playlists;
+          index = 0;
+          focusMovieInit(index);
           break;
       }
   
@@ -51,35 +53,28 @@ $(function() {
     }
   )
   
-  const movieElemId = '.yt-simple-endpoint' + '.inline-block' + '.style-scope' + '.ytd-thumbnail';
+  const movieElemIdMap = new Map([
+    [Page.none, 'undefined'],
+    [Page.top, '.yt-simple-endpoint' + '.inline-block' + '.style-scope' + '.ytd-thumbnail'],
+    [Page.watchMovie, '.ytp-videowall-still' + '.ytp-suggestion-set'],
+    [Page.subscription, '.yt-simple-endpoint' + '.inline-block' + '.style-scope' + '.ytd-thumbnail'],
+    [Page.searchResult, '.yt-simple-endpoint' + '.inline-block' + '.style-scope' + '.ytd-thumbnail'],
+    [Page.playlists, '.yt-simple-endpoint' + '.style-scope' + '.ytd-playlist-thumbnail']
+  ]);
   const movieAreaElemIdMap = new Map([
     [Page.none, 'undefined'],
     [Page.top, '.style-scope' + '.ytd-rich-grid-renderer'],
     [Page.watchMovie, '.ytp-endscreen-content'],
     [Page.subscription, '.style-scope' + '.ytd-grid-renderer'],
     [Page.searchResult, '.style-scope' + '.ytd-item-section-renderer'],
-    [Page.playlist, '']
+    [Page.playlists, '.style-scope' + '.ytd-grid-renderer']
   ]);
 
-  function focusMovieInitTop(index) {
+  function focusMovieInit(index, delay = 500) {
     setTimeout(function() {
-      const movie = $(movieAreaElemIdMap.get(page)).find(movieElemId)[index];
+      const movie = $(movieAreaElemIdMap.get(page)).find(movieElemIdMap.get(page))[index];
       focusMovie(movie);
-    }, 500);
-  }
-
-  function focusMovieInitSubscription(index) {
-    setTimeout(function() {
-      const movie = $(movieAreaElemIdMap.get(page)).find(movieElemId)[index];
-      focusMovie(movie);
-    }, 500);
-  }
-
-  function focusMovieInitSearchResult(index) {
-    setTimeout(function() {
-      const movie = $(movieAreaElemIdMap.get(page)).find(movieElemId)[index];
-      focusMovie(movie);
-    }, 500);
+    }, delay);
   }
 
   function focusMovie(movie) {
@@ -138,6 +133,14 @@ $(function() {
           location.href = 'https://www.youtube.com/feed/subscriptions';
         }
         break;
+      case 'r':
+        if (location.href.match(new RegExp('https\://www\.youtube\.com/channel/.*/playlists')) == null) {
+          const anchorList = $('.yt-simple-endpoint' + '.style-scope' + '.ytd-guide-entry-renderer');
+          const myVideosPath = $.grep(anchorList, (elem, index) => elem.title == '自分の動画')[0].href;
+          const playlistsUrl = myVideosPath.replace('videos', 'playlists').replace('studio', 'www');
+          location.href = playlistsUrl;
+        }
+        break;
       case 'q':
         if (location.href != 'https://www.youtube.com/') {
           history.back();
@@ -160,8 +163,8 @@ $(function() {
       case Page.searchResult:
         operateSearchResultPage(e.key);
         break;
-      case Page.playlist:
-        operatePlaylistPage(e.key);
+      case Page.playlists:
+        operatePlaylistsPage(e.key);
         break;
       default:
         return;
@@ -176,7 +179,7 @@ $(function() {
       return;
     }
     
-    const movieList = $(movieAreaElemIdMap.get(page)).find(movieElemId);
+    const movieList = $(movieAreaElemIdMap.get(page)).find(movieElemIdMap.get(page));
     let nextIndexOffset = 0;
 
     switch(key) {
@@ -298,7 +301,7 @@ $(function() {
       }
     } else {
       // Player Ended
-      const movieList = $('.ytp-endscreen-content').find('.ytp-videowall-still' + '.ytp-suggestion-set');
+      const movieList = $(movieAreaElemIdMap.get(page)).find(movieElemIdMap.get(page));
       let nextIndexOffset = 0;
       
       switch(key) {
@@ -340,7 +343,7 @@ $(function() {
   function operateSubscriptionPage(key) {
     console.debug(`Call operateSubscriptionPage(${key})`);
 
-    const movieList = $(movieAreaElemIdMap.get(page)).find(movieElemId);
+    const movieList = $(movieAreaElemIdMap.get(page)).find(movieElemIdMap.get(page));
     let nextIndexOffset = 0;
 
     switch(key) {
@@ -384,7 +387,7 @@ $(function() {
   function operateSearchResultPage(key) {
     console.debug(`Call operateSearchResultPage(${key})`);
 
-    const movieList = $(movieAreaElemIdMap.get(page)).find(movieElemId);
+    const movieList = $(movieAreaElemIdMap.get(page)).find(movieElemIdMap.get(page));
     let nextIndexOffset = 0;
 
     switch(key) {
@@ -418,9 +421,47 @@ $(function() {
     }
   }
 
-  /* Playlist Page */
-  function operatePlaylistPage(key) {
-    console.debug(`Call operatePlaylistPage(${key})`);
-    // TODO
+  /* Playlists Page */
+  function operatePlaylistsPage(key) {
+    console.debug(`Call operatePlaylistsPage(${key})`);
+
+    const movieList = $(movieAreaElemIdMap.get(page)).find(movieElemIdMap.get(page));
+    let nextIndexOffset = 0;
+
+    switch(key) {
+      case 'w':
+        nextIndexOffset = -6;
+        break;
+      case 'a':
+        nextIndexOffset = -1;
+        break;
+      case 's':
+        nextIndexOffset = 6;
+        break;
+      case 'd':
+        nextIndexOffset = 1;
+        break;
+      case 'e':
+        unfocusMovie(movieList[index]);
+        movieList[index].click();
+        return;
+      case 'v':
+        unfocusMovie(movieList[index]);
+        window.open(movieList[index]['href'], '_blank');
+        return;
+      case 'b':
+        window.open(movieList[index]['href'], null, 'width=500,toolbar=yes,menubar=yes,scrollbars=yes, bookmarkbar=yes');
+        return;
+      default:
+        return;
+    }
+
+    const nextIndex = index + nextIndexOffset;
+    if (movieList[nextIndex] != null && nextIndex >= 0) {
+      unfocusMovie(movieList[index]);
+      focusMovie(movieList[nextIndex]);
+      focusedMovie = movieList[nextIndex];
+      index = nextIndex;
+    }
   }
 })
