@@ -13,10 +13,12 @@
 |  All           |  Focus search form      | ctrl + i     |
 |  Top           |  Select Movie           | w, a, s, d   |
 |  Top           |  Play Movie             | e            |
-|  Watch movie   |  Fast forward 5sec      | d            |
-|  Watch movie   |  Rewind 5sec            | a            |
+|  Watch movie   |  Go forward 5sec        | d            |
+|  Watch movie   |  Go back 5sec           | a            |
 |  Watch movie   |  Volume up 5%           | w            |
 |  Watch movie   |  Volume down 5%         | s            |
+|  Watch movie   |  Playback Rate 2        | x            |
+|  Watch movie   |  Playback Rate 0.5      | z            |
 |  Subscription  |  Select Movie           | w, a, s, d   |
 |  Subscription  |  Play Movie             | e            |
 |  Search result |  Select Movie           | w, s         |
