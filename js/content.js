@@ -123,7 +123,7 @@ $(function() {
     }
 
     switch(e.key) {
-      case 't':
+      case 'g':
         if (location.href != 'https://www.youtube.com/') {
           location.href = 'https://www.youtube.com/';
         }
