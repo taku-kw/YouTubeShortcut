@@ -325,6 +325,9 @@ $(function() {
           unfocusMovie(movieList[index]);
           window.open(movieList[index]['href'], '_blank');
           return;
+        case 'b':
+          window.open(movieList[index]['href'], null, 'width=500,toolbar=yes,menubar=yes,scrollbars=yes, bookmarkbar=yes');
+          return;
         default:
           return;
       }
