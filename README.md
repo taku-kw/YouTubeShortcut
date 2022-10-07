@@ -6,8 +6,9 @@
 
 |  Page          |  Function               | Shortcut Key |
 | -------------- | ----------------------- | ------------ |
-|  All           |  Open top page          | t            |
+|  All           |  Open top page          | g            |
 |  All           |  Open subscription page | c            |
+|  All           |  Open playlists page    | r            |
 |  All           |  Back previous page     | q            |
 |  All           |  Focus search form      | ctrl + i     |
 |  Top           |  Select Movie           | w, a, s, d   |
@@ -20,4 +21,6 @@
 |  Subscription  |  Play Movie             | e            |
 |  Search result |  Select Movie           | w, s         |
 |  Search result |  Play Movie             | e            |
+|  Playlists     |  Select Movie           | w, a, s, d   |
+|  Playlists     |  Play Movie             | e            |
 
