@@ -15,12 +15,12 @@
 |  Top           |  Play Movie               | e            |                    |
 |  Top           |  Play Movie in new tab    | v            |                    |
 |  Top           |  Play Movie in new window | e            |                    |
-|  Watch movie   |  Go forward 5sec          | d            |                    |
-|  Watch movie   |  Go back 5sec             | a            |                    |
-|  Watch movie   |  Volume up 5%             | w            |                    |
-|  Watch movie   |  Volume down 5%           | s            |                    |
-|  Watch movie   |  Playback Rate 2          | x            |                    |
-|  Watch movie   |  Playback Rate 0.5        | z            |                    |
+|  Watch movie   |  Go forward 5sec          | d            | Movie Playing      |
+|  Watch movie   |  Go back 5sec             | a            | Movie Playing      |
+|  Watch movie   |  Volume up 5%             | w            | Movie Playing      |
+|  Watch movie   |  Volume down 5%           | s            | Movie Playing      |
+|  Watch movie   |  Playback Rate 2          | x            | Movie Playing      |
+|  Watch movie   |  Playback Rate 0.5        | z            | Movie Playing      |
 |  Watch movie   |  Select Movie             | w, a, s, d   | Movie Ended        |
 |  Watch movie   |  Play Movie               | e            | Movie Ended        |
 |  Watch movie   |  Play Movie in new tab    | v            | Movie Ended        |
